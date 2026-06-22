@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>João Guilherme — Dev Full-Stack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0A0A0A;
+      --white: #FFFFFF;
+      --gray-mid: #888888;
+      --gray-light: #F5F5F5;
+      --gray-border: #E0E0E0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--gray-border);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--gray-mid);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--black); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem;
+      border-bottom: 1px solid var(--gray-border);
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-bottom: 2rem;
+    }
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--black);
+      margin-bottom: 0.1em;
+    }
+    .cursor {
+      display: inline-block;
+      width: 0.08em;
+      height: 0.85em;
+      background: var(--black);
+      vertical-align: middle;
+      margin-left: 0.05em;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-role {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      font-weight: 300;
+      color: var(--gray-mid);
+      letter-spacing: -0.01em;
+      margin-top: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .hero-desc {
+      max-width: 520px;
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.75;
+      margin-bottom: 3rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--black);
+      color: var(--white);
+      border: 1px solid var(--black);
+    }
+    .btn-primary:hover { background: #333; }
+    .btn-secondary {
+      background: transparent;
+      color: var(--black);
+      border: 1px solid var(--gray-border);
+    }
+    .btn-secondary:hover { border-color: var(--black); }
+
+    /* SKILLS STRIP */
+    .skills-strip {
+      padding: 3rem 4rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--gray-border);
+      background: var(--gray-light);
+    }
+    .skills-strip-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      white-space: nowrap;
+    }
+    .skill-tag {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--black);
+      padding: 0.35rem 0.9rem;
+      border: 1px solid var(--gray-border);
+      border-radius: 999px;
+      background: var(--white);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 6rem 4rem;
+      border-bottom: 1px solid var(--gray-border);
+    }
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-bottom: 3rem;
+    }
+
+    /* EXPERIENCE */
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--gray-border);
+    }
+    .exp-item:last-child { border-bottom: 1px solid var(--gray-border); }
+    .exp-date {
+      font-size: 0.8rem;
+      color: var(--gray-mid);
+      padding-top: 0.2rem;
+    }
+    .exp-role {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+    }
+    .exp-company {
+      font-size: 0.85rem;
+      color: var(--gray-mid);
+      margin-bottom: 1rem;
+    }
+    .exp-points { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .exp-points li {
+      font-size: 0.9rem;
+      color: #444;
+      padding-left: 1rem;
+      position: relative;
+    }
+    .exp-points li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gray-border);
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5px;
+      background: var(--gray-border);
+      border: 1px solid var(--gray-border);
+    }
+    .project-card {
+      background: var(--white);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s;
+    }
+    .project-card:hover { background: var(--gray-light); }
+    .project-number {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--gray-mid);
+    }
+    .project-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .project-desc {
+      font-size: 0.85rem;
+      color: #555;
+      line-height: 1.6;
+      flex: 1;
+    }
+    .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem; }
+    .project-tag {
+      font-size: 0.7rem;
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: 0.05em;
+      color: var(--gray-mid);
+      border: 1px solid var(--gray-border);
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+    }
+    .project-arrow {
+      font-size: 0.9rem;
+      color: var(--gray-mid);
+      transition: transform 0.2s, color 0.2s;
+      align-self: flex-end;
+    }
+    .project-card:hover .project-arrow { transform: translate(3px,-3px); color: var(--black); }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+    .about-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #333;
+      font-weight: 300;
+    }
+    .about-text strong { font-weight: 600; color: var(--black); }
+    .about-extras { display: flex; flex-direction: column; gap: 2rem; }
+    .about-extra-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-mid);
+      margin-bottom: 0.75rem;
+    }
+    .extra-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .extra-list li { font-size: 0.88rem; color: #444; }
+
+    /* CONTACT */
+    .contact-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+    .contact-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      max-width: 600px;
+    }
+    .contact-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .contact-link {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--black);
+      text-decoration: none;
+      border-bottom: 1px solid var(--black);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .contact-link:hover { opacity: 0.5; }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--gray-mid);
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero, section { padding: 5rem 1.5rem 3rem; }
+      .skills-strip { padding: 2rem 1.5rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cursor { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">JG</a>
+    <ul class="nav-links">
+      <li><a href="#experiencia">Experiência</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">Desenvolvedor Full-Stack · Recife, PE</p>
+    <h1 class="hero-name">João Guilherme<span class="cursor"></span></h1>
+    <p class="hero-role">React · Node.js · TypeScript</p>
+    <p class="hero-desc">
+      Desenvolvedor full-stack focado em interfaces responsivas e APIs escaláveis.
+      Cursando Ciências da Computação na CESAR School, com interesse em IA,
+      Data Science e Cyber Security.
+    </p>
+    <div class="hero-actions">
+      <a href="#projetos" class="btn btn-primary">Ver projetos</a>
+      <a href="https://github.com/jonguikd" target="_blank" class="btn btn-secondary">GitHub ↗</a>
+    </div>
+  </section>
+
+  <!-- SKILLS STRIP -->
+  <div class="skills-strip">
+    <span class="skills-strip-label">Stack</span>
+    <span class="skill-tag">React</span>
+    <span class="skill-tag">TypeScript</span>
+    <span class="skill-tag">Node.js</span>
+    <span class="skill-tag">Nest.js</span>
+    <span class="skill-tag">SQL</span>
+    <span class="skill-tag">MongoDB</span>
+    <span class="skill-tag">Python</span>
+    <span class="skill-tag">Java</span>
+  </div>
+
+  <!-- EXPERIÊNCIA -->
+  <section id="experiencia">
+    <p class="section-label">Experiência Profissional</p>
+    <div class="exp-item">
+      <div class="exp-date">Ago 2024 – Out 2025</div>
+      <div>
+        <div class="exp-role">Desenvolvedor Full-Stack Júnior</div>
+        <div class="exp-company">Amigo Tech</div>
+        <ul class="exp-points">
+          <li>Desenvolvimento de aplicações React com foco em modularidade, responsividade e experiência do usuário.</li>
+          <li>Refatoração de funcionalidades legadas em JavaScript/TypeScript, reduzindo bugs em produção e melhorando estabilidade.</li>
+          <li>Integração de componentes React com APIs RESTful desenvolvidas em Nest.js e Node.js.</li>
+          <li>Gerenciamento de persistência de dados com SQL e MongoDB.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETOS -->
+  <section id="projetos">
+    <p class="section-label">Projetos no GitHub</p>
+    <div class="projects-grid">
+
+      <a class="project-card" href="https://github.com/jonguikd" target="_blank">
+        <span class="project-number">01</span>
+        <div class="project-name">Projetos Acadêmicos</div>
+        <p class="project-desc">Soluções desenvolvidas durante o curso de Ciências da Computação na CESAR School, abrangendo diferentes áreas e problemas reais.</p>
+        <div class="project-tags">
+          <span class="project-tag">React</span>
+          <span class="project-tag">Node.js</span>
+          <span class="project-tag">Python</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+      <a class="project-card" href="https://github.com/jonguikd" target="_blank">
+        <span class="project-number">02</span>
+        <div class="project-name">APIs RESTful</div>
+        <p class="project-desc">Desenvolvimento de APIs escaláveis com arquitetura de microsserviços usando Nest.js, TypeScript e bancos de dados relacionais e não-relacionais.</p>
+        <div class="project-tags">
+          <span class="project-tag">Nest.js</span>
+          <span class="project-tag">TypeScript</span>
+          <span class="project-tag">MongoDB</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+      <a class="project-card" href="https://github.com/jonguikd" target="_blank">
+        <span class="project-number">03</span>
+        <div class="project-name">Interfaces & SPAs</div>
+        <p class="project-desc">Single Page Applications com React, utilizando Hooks, gerenciamento de estado e integração com APIs externas para experiências dinâmicas.</p>
+        <div class="project-tags">
+          <span class="project-tag">React</span>
+          <span class="project-tag">JavaScript</span>
+          <span class="project-tag">CSS</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+      <a class="project-card" href="https://github.com/jonguikd" target="_blank">
+        <span class="project-number">04</span>
+        <div class="project-name">Data & ML</div>
+        <p class="project-desc">Experimentos com bibliotecas de análise de dados e machine learning em Python, explorando IA generativa e LLMs.</p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">Machine Learning</span>
+          <span class="project-tag">LLM</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </a>
+
+    </div>
+    <p style="margin-top:1.5rem; font-size:0.82rem; color:var(--gray-mid);">
+      Veja todos os repositórios em <a href="https://github.com/jonguikd" target="_blank" style="color:var(--black); border-bottom:1px solid var(--gray-border);">github.com/jonguikd</a>
+    </p>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <p class="section-label">Sobre</p>
+    <div class="about-grid">
+      <div class="about-text">
+        Sou <strong>João Guilherme Carvalho</strong>, desenvolvedor full-stack de Recife com experiência
+        em React, Node.js e TypeScript. Atualmente no <strong>sexto semestre de Ciências da Computação
+        na CESAR School</strong>, onde venho desenvolvendo soluções para problemas reais desde 2021.
+        <br><br>
+        Tenho interesse em <strong>Inteligência Artificial, Data Science e Cyber Security</strong>, e
+        busco constantemente aprender e aplicar novas tecnologias em projetos práticos.
+      </div>
+      <div class="about-extras">
+        <div>
+          <p class="about-extra-title">Educação</p>
+          <ul class="extra-list">
+            <li>CESAR School — Bacharelado em Ciências da Computação</li>
+            <li>Fev 2021 – Presente · 6º semestre</li>
+          </ul>
+        </div>
+        <div>
+          <p class="about-extra-title">Formações Complementares</p>
+          <ul class="extra-list">
+            <li>Generative AI & LLM — Snowflake (2023)</li>
+            <li>Power BI para Aprimoramento da Gestão (2024)</li>
+            <li>CESAR School Projects — 2021 a 2023</li>
+          </ul>
+        </div>
+        <div>
+          <p class="about-extra-title">Voluntariado</p>
+          <ul class="extra-list">
+            <li>Projeto Mangueira da Torre — aulas de matemática e português</li>
+            <li>Projeto Abraço do Bem — saúde, educação e assistência social</li>
+          </ul>
+        </div>
+        <div>
+          <p class="about-extra-title">Idiomas</p>
+          <ul class="extra-list">
+            <li>Português — nativo</li>
+            <li>Inglês — intermediário/avançado</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato">
+    <div class="contact-inner">
+      <h2 class="contact-heading">Vamos trabalhar juntos?</h2>
+      <div class="contact-links">
+        <a href="mailto:joaoguilhermelima@hotmail.com" class="contact-link">joaoguilhermelima@hotmail.com</a>
+        <a href="https://github.com/jonguikd" target="_blank" class="contact-link">GitHub ↗</a>
+        <a href="tel:+5581999667758" class="contact-link">+55 81 99966-7758</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2025 João Guilherme Carvalho</span>
+    <span>Recife, PE — Brasil</span>
+  </footer>
+
+</body>
+</html>
